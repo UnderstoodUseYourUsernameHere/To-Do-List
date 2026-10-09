@@ -37,10 +37,6 @@ function addTask() {
     }
 }
 
-function deleteAllTasks() {
-    //more logic
-}
-
 function displayTasks() {
     todoList.innerHTML = "";
     todo.forEach((item, index) => {

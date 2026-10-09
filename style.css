@@ -12,6 +12,9 @@
     --blue: #2d70fd;
     --green: #00d8a7;
     --white: #ffffff;
+    body {
+  font-family: Arial, Helvetica, sans-serif;
+}
 }
 
 body {
@@ -113,7 +116,7 @@ li {
     text-decoration: line-through;
 }
 
-input [type="checkbox"] {
+input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
