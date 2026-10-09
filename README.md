@@ -51,4 +51,7 @@ To run this project locally on your machine:
 
 # Author 
 Mustard
-Github: UnderstoodUseYourUsernameHere - (Yes, i know its weird, i was messing around when i made this account, and now im using it seriously. )
+
+Github: UnderstoodUseYourUsernameHere
+
+ (Yes, i know its weird, i was messing around when i made this account, and now im using it seriously. )
