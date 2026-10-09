@@ -1,7 +1,7 @@
 :root {
     --gradient: linear-gradient(
         180deg, 
-        rgba(45, 112, 1253, 0.73) 0%,
+        rgba(45, 112, 253, 0.73) 0%,
         #163e92 100%
     );
     --dark: #001747;
@@ -98,7 +98,7 @@ li {
 }
 
 #todoList p {
-    color: flex;
+    display: flex;
     gap: 1rem;
     color: var(--dark);
     align-items: center;
@@ -132,7 +132,7 @@ input[type="checkbox"]::before {
     color: transparent;
 }
 
-input[type="checkbox"]::checked::before {
+input[type="checkbox"]:checked::before {
     color: var(--white);
     background-color: var(--green);
     border: 0.06rem solid var(--green);
@@ -147,6 +147,7 @@ input[type="checkbox"]::checked::before {
     height: 2rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     color: var(--grey);
 }
 
@@ -157,8 +158,19 @@ input[type="checkbox"]::checked::before {
 .counter-container button {
     border: none;
     background-color: transparent;
-    color: var(--grey);
-    font-size: 1rem;
+    color: var(--grey-dark);
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid var(--grey-border);
+    border-radius: 0.35rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.counter-container button:hover {
+    color: #e63946;
+    border-color: #e63946;
+    background-color: rgba(230, 57, 70, 0.08);
 }
 
 .footer {
