@@ -25,7 +25,16 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function addTask() {
-    //some logic
+    const newTask = todoInput.value.trim();
+    if (newTask !== "") {
+        todo.push({
+            text: newTask,
+            disabled: false,
+        });
+        saveToLocalStorage();
+        todoInput.value = "";
+        displayTasks();
+    }
 }
 
 function deleteAllTasks() {
@@ -33,5 +42,18 @@ function deleteAllTasks() {
 }
 
 function displayTasks() {
-    //even more logic
+    todoList.innerHTML = "";
+    todo.forEach((item, index) => {
+        const p = document.createElement("p");
+        p.innerHTML = `
+        <div class="todo-container">
+            <input type= "checkbox" class="todo-checkbox"
+            id="input-${index}" ${item.disabled ? "checked" : ""}> 
+        </div>
+        `
+    })
+}
+
+function saveToLocalStorage() {
+    localStorage.setItem("todo", JSON.stringify(todo));
 }
