@@ -1,6 +1,13 @@
 // Retrieve todo from local storage or initialize an empty array 
 
-let todo = JSON.parse(localStorage.getItem("todo")) || [];  
+let todo = JSON.parse(localStorage.getItem("todo")) || [];
+let draggedIndex = null;  
+
+const done = todo.filter(t => t.disabled.length);
+    doneCount.textContent= done;
+    todoCount.textContent = todo.length;
+    progressFill.style.width = todo.length ? (done / todo.length) * 100 + "%" : "0%";
+
 const todoInput = document.getElementById("todoInput");
 
 const todoList = document.getElementById("todoList");
@@ -38,20 +45,46 @@ function addTask() {
 }
 
 function displayTasks() {
+    if (todo.length === 0) {
+        return `<p class="empty">Nothing here yet!</p>`
+    };
     todoList.innerHTML = "";
     todo.forEach((item, index) => {
-        const p = document.createElement("p");
-        p.innerHTML = `
-        <div class="todo-container">
-            <input type= "checkbox" class="todo-checkbox"
-            id="input-${index}" ${item.disabled ? "checked" : ""}>
-            <p id="todo-${index}" class="${item.disabled ? "disabled" : ""}" onclick="editTask(${index})">${item.text}</p> 
-        </div>
+        const li = document.createElement("li");
+        li.className = "todo-item";
+        li.addEventListener("dragstart", (e) => {
+            draggedIndex = index;
+            e.dataTransfer.setData("text/plain", index);
+            li.classList.add("dragging");
+        })
+        li.addEventListener("dragend", () => li.classList.remove("dragging"));
+        li.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            li.classList.add("drag-over");
+        })
+        li.addEventListener("drop", () => {
+            const[moved] = todo.splice(draggedIndex, 1);
+            todo.splice(index, 0, moved);
+            saveToLocalStorage();
+            displayTasks();
+        });
+        li.draggable = true;
+        li.innerHTML = `
+        <span class="handle">::</span>
+        <input type="checkbox" class="todo-checkbox" ${item.disabled ? "checked" : ""}>
+        <p id="todo-${index}" class="todo-checkbox" ${item.disabled ? "checked" : ""}>
+        <p id="todo-${index}" class="todo-checkbox" ${item.disabled ? "disabled" : ""}"
+        li.querySelector(".delete-btn").addEventListener("click", () => deleteTask(index));
+        onclick="editTask(${index})">$(item.text)
+        todo.splice(index, 1);
+        localStorage.setItem("todo", JSON.stringify(todo));
+        render();</p>
+        <button class="delete-btn" title="Delete">X</Button>
         `;
-        p.querySelector(".todo-checkbox").addEventListener("change", () => {
+        li.querySelector(".todo-checkbox").addEventListener("change", () => {
             toggleTask(index);
         });
-        todoList.appendChild(p);
+        todoList.appendChild(li);
     });
     todoCount.textContent = todo.length;
 }
@@ -82,6 +115,7 @@ function toggleTask(index) {
 }
 
 function deleteAllTasks() {
+    if (!confirm("Delete all goals?")) return;
     todo = [];
     saveToLocalStorage();
     displayTasks();
