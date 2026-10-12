@@ -13,6 +13,7 @@ A clean, responsive To-Do List application built with vanilla HTML5, CSS3, and J
 - **Local Storage Persistence:** Keeps your task list intact even after closing or refreshing the browser.
 - **Goal Counter:** Real-time tracking of total tasks.
 - **Bulk Clear:** One-click "Delete All" action.
+- **Sortable Lists!!**: Self explanatory, you can sort them!!!!!
 
 ---
 
